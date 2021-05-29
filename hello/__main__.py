@@ -6,6 +6,7 @@ Rather a flow is created that includes one or more tasks, and
 the flow is run.
 """
 from prefect import task, Flow, Parameter
+import prefect
 
 
 @task(log_stdout=True)
@@ -16,6 +17,8 @@ def say_hello(name: str):
     Arguments:
         name (str): name to print
     """
+    logger = prefect.context.get('logger')
+    logger.info(f'Hello, {name}!')
     print(f'Hello, {name}!')
 
 
